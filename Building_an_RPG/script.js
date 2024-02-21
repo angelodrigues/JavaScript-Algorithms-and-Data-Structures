@@ -175,18 +175,18 @@ function goFight(){
     update(locations[3]);
     monsterHealth = monsters[fighting].health;
     monsterStats.style.display = "block";
-    monsterName.innerText = monsters[fighting].name;
-    monsterHealthText.innerText = monsterHealth
+    monsterName.innerHTML = monsters[fighting].name;
+    monsterHealthText.innerHTML = monsterHealth
 }
 
 function buyHealth() {
     if(gold >= 10){
         gold                 -= 10;
         health               += 10;
-        goldText.innerText   = gold;
-        healthText.innerText = health;
+        goldText.innerHTML   = gold;
+        healthText.innerHTML = health;
     }else{
-        text.innerText = "You do not have enough gold to buy health."
+        text.innerHTML = "You do not have enough gold to buy health."
     }
 }
 
@@ -195,17 +195,17 @@ function buyWeapon() {
         if (gold >= 30) {
             gold -= 30;
             currentWeapon++;
-            goldText.innerText = gold;
+            goldText.innerHTML = gold;
             let newWeapon  = weapons[currentWeapon].name;
-            text.innerText = "You now have a " + newWeapon + ".";
+            text.innerHTML = "You now have a " + newWeapon + ".";
             inventory.push(newWeapon);
-            text.innerText += " In your inventory you have: " + inventory;
+            text.innerHTML += " In your inventory you have: " + inventory;
       } else {
-            text.innerText = "You do not have enough gold to buy a weapon.";
+            text.innerHTML = "You do not have enough gold to buy a weapon.";
       }
     } else {
-        text.innerText    = "You already have the most powerful weapon!";
-        button2.innerText = "Sell weapon for 15 gold";
+        text.innerHTML    = "You already have the most powerful weapon!";
+        button2.innerHTML = "Sell weapon for 15 gold";
         button2.onclick   = sellWeapon;
     }
 }
@@ -213,12 +213,12 @@ function buyWeapon() {
 function sellWeapon() {
     if(inventory.length > 1){
         gold += 15;
-        goldText.innerText = gold;
+        goldText.innerHTML = gold;
         let currentWeapon = inventory.shift();
-        text.innerText = "You sold a " + currentWeapon + ".";
-        text.innerText += " In your inventory you have: " + inventory;
+        text.innerHTML = "You sold a " + currentWeapon + ".";
+        text.innerHTML += " In your inventory you have: " + inventory;
     } else {
-        text.innerText = "Don't sell your only weapon!";        
+        text.innerHTML = "Don't sell your only weapon!";        
     }
 }
 
@@ -238,16 +238,16 @@ function fightDragon() {
 }
 
 function attack() {
-    text.innerText = "The " + monsters[fighting].name + " attacks.";
-    text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
+    text.innerHTML = "The " + monsters[fighting].name + " attacks.";
+    text.innerHTML += " You attack it with your " + weapons[currentWeapon].name + ".";
     health -= getMonsterAttackValue(monsters[fighting].level);
     if(isMonsterHit()){
         monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
     } else {
-        text.innerText += " You miss."
+        text.innerHTML += " You miss."
     }
-    healthText.innerText = health;
-    monsterHealthText.innerText = monsterHealth;
+    healthText.innerHTML = health;
+    monsterHealthText.innerHTML = monsterHealth;
     if (health <= 0) {
       lose();
     } else if (monsterHealth <= 0) {
@@ -258,20 +258,20 @@ function attack() {
       }    
     }
     if (Math.random() <= .1 && inventory.length !== 1) {
-        text.innerText += " Your " + inventory.pop() + " breaks.";
+        text.innerHTML += " Your " + inventory.pop() + " breaks.";
         currentWeapon--;
     }
 }
 
 function dodge(){
-    text.innerText = "You dodge the attack from the " + monsters[fighting].name + ".";
+    text.innerHTML = "You dodge the attack from the " + monsters[fighting].name + ".";
 }
 
 function defeatMonster() {
     gold += Math.floor(monsters[fighting].level * 6.7);
     xp += monsters[fighting].level;
-    goldText.innerText = gold;
-    xpText.innerText = xpText;
+    goldText.innerHTML = gold;
+    xpText.innerHTML = xpText;
     update(locations[4]);
 }
 
@@ -281,13 +281,13 @@ function lose() {
 
 function update(location){
     monsterStats.style.display = "none";
-    button1.innerText = location["button text"][0];
-    button2.innerText = location["button text"][1];
-    button3.innerText = location["button text"][2];
+    button1.innerHTML = location["button text"][0];
+    button2.innerHTML = location["button text"][1];
+    button3.innerHTML = location["button text"][2];
     button1.onclick   = location["button functions"][0];
     button2.onclick   = location["button functions"][1];
     button3.onclick   = location["button functions"][2];
-    text.innerText    = location.text;
+    text.innerHTML    = location.text;
 }
 
 function restart(){
@@ -296,9 +296,9 @@ function restart(){
     gold = 50;
     currentWeapon = 0;
     inventory = ["stick"];
-    goldText.innerText = gold;
-    healthText.innerText = health;
-    xpText.innerText = xp;
+    goldText.innerHTML = gold;
+    healthText.innerHTML = health;
+    xpText.innerHTML = xp;
     goTown();
 }
 
@@ -325,18 +325,18 @@ function pick(guess){
     while(numbers.length < 10){
         numbers.push(Math.floor(Math.random() * 11));
     }
-    text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+    text.innerHTML = "You picked " + guess + ". Here are the random numbers:\n";
     for (let i = 0; i < 10; i++) {
-        text.innerText += numbers[i] + "\n";
+        text.innerHTML += numbers[i] + "\n";
     }
     if (numbers.includes(guess)) {
-        text.innerText += "Right! You win 20 gold!";
+        text.innerHTML += "Right! You win 20 gold!";
         gold += 20;
-        goldText.innerText = gold;
+        goldText.innerHTML = gold;
     } else {
-        text.innerText += "Wrong! You lose 10 health!";
+        text.innerHTML += "Wrong! You lose 10 health!";
         health -= 10;
-        healthText.innerText = health;
+        healthText.innerHTML = health;
         if(health <= 0){
             lose();
         }
